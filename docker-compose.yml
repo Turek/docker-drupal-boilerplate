@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  ${APP_NAME}:
+  drupal:
     driver: bridge
 
 services:
@@ -21,7 +21,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
     restart: always
     networks:
-        - ${APP_NAME}
+        - drupal
 
   nginx:
     image: nginx:latest
@@ -40,7 +40,7 @@ services:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d:delegated
       - ./docroot:/var/www/html/docroot:delegated
     networks:
-        - ${APP_NAME}
+        - drupal
 
   fpm:
     # image: php:7.2-fpm
@@ -57,17 +57,17 @@ services:
       - ./etc/php/config.ini:/usr/local/etc/php/conf.d/x-config.ini:delegated
       - ./.:/var/www/html:delegated
     networks:
-        - ${APP_NAME}
+        - drupal
 
   memcached:
     image: memcached:1.5.2-alpine
     networks:
-        - ${APP_NAME}
+        - drupal
 
   # mailhog:
   #   image: mailhog/mailhog
   #   networks:
-  #       - ${APP_NAME}
+  #       - drupal
 
 volumes:
   local-db:
