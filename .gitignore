@@ -1,0 +1,83 @@
+# Ignore core and contrib when managing all of a project's dependencies with Composer
+# including Drupal core.
+docroot/core
+docroot/modules/contrib/*
+docroot/themes/contrib/*
+docroot/profiles/contrib/*
+docroot/libraries/*
+
+# Core's dependencies are managed with Composer.
+drush/contrib/
+vendor/
+
+# Ignore configuration files that may contain sensitive information.
+docroot/sites/**/settings.local.php
+docroot/sites/**/local.settings.php
+docroot/sites/*/services*.yml
+
+# Ignore paths that contain user-generated content.
+docroot/sites/*/files
+sites/*/files
+sites/*/private
+
+# Ignore SimpleTest multi-site environment.
+sites/simpletest
+
+# If you prefer to store your .gitignore file in the sites/ folder, comment
+# or delete the previous settings and uncomment the following ones, instead.
+
+# Ignore configuration files that may contain sensitive information.
+# */settings*.php
+*/*.local.php
+
+# Ignore paths that contain user-generated content.
+*/files
+*/private
+
+# Ignore SimpleTest multi-site environment.
+# simpletest
+
+# Ignore core phpcs.xml and phpunit.xml.
+core/phpcs.xml
+core/phpunit.xml
+
+# Ignore .env files
+.env
+
+# Ignore local certs
+etc/nginx/ssl/*.pem
+etc/nginx/ssl/*.crt
+etc/nginx/ssl/*.key
+etc/nginx/ssl/*.p12
+
+# Ignore PHPStorm files
+.idea
+
+# Ignore custom theme node_modules folders
+docroot/themes/custom/*/node_modules
+docroot/themes/custom/**/npm-debug.log
+
+# Ignore css files
+docroot/themes/custom/**/build/
+docroot/themes/custom/**/build/*.css
+docroot/themes/custom/**/build/*.css.map
+static/**/*
+
+# Ignore js files
+docroot/themes/custom/**/build/*.js
+
+# Ignore app builds
+docroot/themes/custom/**/app/build
+docroot/themes/custom/**/app/node_modules
+
+# Ignore test reports
+reports/
+
+# OS X
+.DS_Store
+
+# Ignore config files that are ignored by config ignore
+config/default/simple_sitemap.custom.yml
+
+drush-backups
+*.code-workspace

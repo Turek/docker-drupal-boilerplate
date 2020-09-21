@@ -1,0 +1,106 @@
+{
+    "name": "appname",
+    "description": "description",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "config": {
+        "platform": {
+            "php": "7.2"
+        },
+        "sort-packages": true
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "~1.0",
+        "drupal-composer/drupal-scaffold": "^2.2",
+        "drupal/admin_toolbar": "^2.0",
+        "drupal/core": "^8.6",
+        "drupal/devel": "^2.0",
+        "drupal/metatag": "^1.7",
+        "drupal/paragraphs": "^1.8",
+        "drupal/pathauto": "^1.4",
+        "drupal/redirect": "^1.4",
+        "drupal/twig_tweak": "^2.1",
+        "drush/drush": "~9.4.0",
+        "twig/extensions": "^1.5",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "require-dev": {},
+    "prefer-stable": true,
+    "scripts": {
+        "post-root-package-install": [],
+        "post-create-project-cmd": [
+            "echo \"post-create-project-cmd\"",
+            "./vendor/bin/drush eval \"echo Drupal\\Component\\Utility\\Crypt::randomBytesBase64(55)\" > salt.txt",
+            "project-setup"
+        ],
+        "post-install-cmd": [
+            "echo \"post-install-cmd\""
+        ],
+        "post-update-cmd": [
+            "echo \"post-update-cmd\""
+        ],
+        "project-setup": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "php -r \"file_exists('docroot/sites/default/local.settings.php') || copy('example.settings.local.php', 'docroot/sites/default/local.settings.php');\""
+        ]
+    },
+    "extra": {
+        "installer-paths": {
+            "docroot/core": [
+                "type:drupal-core"
+            ],
+            "docroot/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "docroot/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "docroot/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "docroot/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "docroot/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "docroot/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ],
+            "docroot/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "drush/Commands/{$name}": [
+                "type:drupal-drush"
+            ]
+        },
+        "patches": {
+            "drupal/plupload": {
+                "Patch to remove plupload library examples folder": "etc/composer/patches/plupload-fix-temp-file-name.patch"
+            }
+        },
+        "enable-patching": true,
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
+        "merge-plugin": {
+            "require": [],
+            "merge-extra": true,
+            "merge-extra-deep": true,
+            "merge-scripts": true,
+            "replace": false,
+            "ignore-duplicates": true
+        }
+    }
+}
